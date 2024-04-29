@@ -1,0 +1,72 @@
+-- // Services \\ --
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local InputService = game:GetService("UserInputService")
+local Lighting = game:GetService("Lighting")
+local Workspace = game:GetService("Workspace")
+
+-- // Variables \\ --
+local LocalPlayer = Players.LocalPlayer
+local CurrentCamera = Workspace.CurrentCamera
+
+-- // Table \\ --
+local util = {
+    enabled = false,
+    target = nil,
+}
+
+-- // Settings \\ --
+local Settings = {
+    Key = "", -- // Your KEY
+    Main = "BrokeBoys66", -- // Your main account you will run the command on
+    Gun = "LMG", -- // Rev, SMG, LMG
+    CommandPrefix = ":", -- // ":command <argument>" Prefix for commands
+    Commands = {
+        Prefix = "prefix", -- // ":prefix <new_prefix>" will set prefix
+        Kill = "k", -- // ":k <display_name>" will kill your target
+        Knock = "ko", -- // ":ko <display_name>" will knock your target
+        Bring = "bring", -- // ":bring <display_name>" will bring a target to you
+        Void = "void", -- // ":void <display_name>" will bring a target to the void
+        Jail = "jail", -- // ":jail <display_name>" will bring a target to the admin jail
+        Goto = "goto", -- // ":goto <display_name>" will bring you to the target
+        Show = "show", -- // ":show" will bring your alt account
+        Hide = "hide", -- // ":hide" will tp your alt to safe zone
+        Fix = "fix", -- // ":fix" will fix your alt if someone logs or to stop locking onto someone
+        Drop = "drop", -- // ":drop" will drop 7k
+        Ammo = "ammo", -- // ":ammo <amount>" will buy a gun if you dont have one and buy ammo if you have the gun
+        Mask = "mask", -- // ":mask" will make the alt equip a mask to hide username
+        Exit = "exit", -- // ":exit" will kick the alt
+        CodeFarm = "codes", -- // ":codes" will run the code farm script made by xz
+    },
+    Prediction = {
+        Value = 0.135, -- // Prediction amount
+        AutoPrediction = true, -- // Will automatically set prediction
+    },
+    Bind = {
+        Key = Enum.KeyCode.F1, -- // Key to bind (F1 in this case)
+        Action = "kill", -- // Action to perform when key is pressed (kill in this case)
+    },
+}
+
+-- // Functions \\ --
+function FindPlayer(TargetDisplay)
+    for i,v in pairs(game.Players:GetChildren()) do
+        if (string.sub(string.lower(v.DisplayName),1,string.len(TargetDisplay))) == string.lower(TargetDisplay) then
+            return v.Name
+        end
+    end
+end
+
+function GetPrediction()
+    local PingStats = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
+    local Value = tostring(PingStats)
+    local PingValue = Value:split(" ")
+    local PingNumber = tonumber(PingValue[1])
+    return tonumber(PingNumber / 225 * 0.1 + 0.1)
+end
+
+function RandomSafeZone()
+    CurrentCamera.CameraSubject = LocalPlayer.Character.Humanoid
+    local safezones = {
+        CFrame.new(-897, -1, -650),
+        CFrame.new(-869, 116
