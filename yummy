@@ -43,7 +43,7 @@ local Settings = {
         AutoPrediction = true, -- // Will automatically set prediction
     },
     Bind = {
-        Key = Enum.KeyCode.F1, -- // Key to bind (F1 in this case)
+        Key = Enum.KeyCode.q, -- // Key to bind (F1 in this case)
         Action = "kill", -- // Action to perform when key is pressed (kill in this case)
     },
 }
